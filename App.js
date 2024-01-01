@@ -1,20 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import Main from './src/screens/Main'
+import * as SplashScreen from 'expo-splash-screen'
+import * as Font from 'expo-font'
+import { useEffect } from 'react'
+
+SplashScreen.preventAutoHideAsync()
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  useEffect(() => {
+    async function loadFonts() {
+      await Font.loadAsync({
+        'NPS-Bold': require('./assets/fonts/NPSfont_bold.ttf'),
+        'NPS-regular': require('./assets/fonts/NPSfont_regular.ttf'),
+      })
+    }
+    loadFonts()
+  }, [])
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  return <Main />
+}
